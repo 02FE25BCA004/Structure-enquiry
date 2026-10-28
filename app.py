@@ -1,38 +1,65 @@
+
 # app.py
 
 def calculate_grade(average):
     if 90 <= average <= 100:
         return "Grade S"
-    elif 80 <= average <= 89:
+    elif average >= 80:
         return "Grade A"
-    elif 65 <= average <= 79:
+    elif average >= 65:
         return "Grade B"
-    elif 50 <= average <= 64:
+    elif average >= 50:
         return "Grade C"
-    elif 40 <= average <= 49:
+    elif average >= 40:
         return "Grade D"
     else:
         return "Grade F"
 
+
+def get_marks(subject_number):
+    while True:
+        try:
+            marks = float(input(
+                f"Enter marks for subject {subject_number} (0-100): "
+            ))
+
+            if 0 <= marks <= 100:
+                return marks
+
+            print("Invalid marks! Enter a value between 0 and 100.")
+
+        except ValueError:
+            print("Invalid input! Please enter a number.")
+
+
 def main():
     print("=== Student Grade Evaluation System ===")
-    
-    # Mock input data (can be modified to input() for interactive use)
-    name = "Alice Smith"
-    department = "Computer Science"
-    semester = 4
-    marks = [85, 90, 78]
-    
-    avg_score = sum(marks) / len(marks)
-    grade = calculate_grade(avg_score)
-    
-    print(f"Student Name : {name}")
-    print(f"Department   : {department}")
-    print(f"Semester     : {semester}")
-    print(f"Marks        : {marks}")
-    print(f"Average Score: {avg_score:.2f}")
+
+    name = input("Enter student name: ").strip()
+    while not name:
+        print("Name cannot be empty.")
+        name = input("Enter student name: ").strip()
+
+    department = input("Enter department: ").strip()
+    semester = input("Enter semester: ").strip()
+
+    marks = []
+
+    for i in range(1, 4):
+        marks.append(get_marks(i))
+
+    average = sum(marks) / len(marks)
+    grade = calculate_grade(average)
+
+    print("\n===== STUDENT RESULT =====")
+    print(f"Student Name  : {name}")
+    print(f"Department    : {department}")
+    print(f"Semester      : {semester}")
+    print(f"Subject Marks : {marks}")
+    print(f"Average Score : {average:.2f}")
     print(f"Assigned Grade: {grade}")
-    print("Student evaluation executed successfully!")
+    print("Student evaluation completed successfully!")
+
 
 if __name__ == "__main__":
     main()
